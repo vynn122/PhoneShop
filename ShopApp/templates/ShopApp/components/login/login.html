@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-form">
+        <!-- Monkey Animation -->
+        <div class="monkey-container">
+          <img
+            id="monkey"
+            src="{% static 'images/login/monkey.gif' %}"
+            alt="Monkey"
+            class="monkey"
+          />
+          <img
+            id="hands"
+            src="{% static 'images/login/hands.png' %}"
+            alt="Hands"
+            class="hands"
+          />
+        </div>
+        <!-- End Monkey Animation -->
+
+        <!-- Login Form -->
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="phone_or_email" class="label">Phone or Email</label>
+            <input
+              type="text"
+              id="phone_or_email"
+              name="phone_or_email"
+              placeholder="Phone or Email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" class="label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn">Login</button>
+          </div>
+        </form>
+        <!-- End Login Form -->
+      </div>
+    </div>
+    <script src="{% static 'JS/login.js' %}"></script>
+  </body>
+  <script>
+    var monkeyGif = "{% static 'images/login/monkey.gif' %}";
+    var monkeyPwdGif = "{% static 'images/login/monkey_pwd.gif' %}";
+    var handsGif = "{% static 'images/login/hands.png' %}";
+  </script>
+  <script src="{% static 'js/login.js' %}"></script>
+</html>

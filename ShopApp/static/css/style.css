@@ -1,0 +1,272 @@
+/* Hero Section */
+/* .hero {
+  height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(1, 0, 0, 0.6)),
+    url("../images/large.mp4") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+} */
+
+.hero {
+  position: relative;
+  height: 86.5vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero .vdo-hero {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+.vdo-hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: -1;
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #b8860b;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+  overflow: hidden;
+  position: relative;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 0;
+  transition: all 0.7s ease-in-out;
+  cursor: pointer;
+}
+
+.cta-button:hover::before {
+  left: 0;
+  cursor: pointer;
+}
+.cta-button a {
+  color: white;
+}
+.cta-button:hover a {
+  color: #b8860b;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+@media only screen and (max-width: 768px) {
+  .hero {
+    height: 60vh;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .cta-button a {
+    padding: 10px 20px;
+  }
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .cta-button a {
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .hero {
+    height: 50vh;
+  }
+
+  .hero-content h1 {
+    font-size: 1.2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .cta-button a {
+    padding: 8px 15px;
+  }
+  .cta-button {
+    padding: 0.5rem 1rem;
+  }
+
+  .cta-button a {
+    font-size: 0.8rem;
+  }
+}
+/* product */
+
+.pro-container {
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+  border: 2px solid rgba(207, 214, 255, 0.66);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+.content-name {
+  margin: 15px 0;
+  text-align: center;
+}
+.content-name h3 {
+  color: #b8860b;
+  margin: 0;
+}
+
+.content-name hr {
+  margin: 10px auto;
+  border: 1.5px solid #b8860b;
+}
+
+.grid {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+}
+
+.product {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+/* Product Image */
+.product-image {
+  width: 120px;
+  height: 200px;
+  object-fit: fill;
+  margin-bottom: 1rem;
+}
+
+/* Price container with discount */
+.price-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.original-price {
+  font-size: 16px;
+  color: #b8860b;
+  opacity: 0.6;
+  margin-right: 5px;
+  text-decoration: line-through;
+}
+
+.discounted-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #b8860b;
+  text-decoration: underline;
+}
+
+/* Price without discount */
+.price {
+  font-size: 16px;
+  color: #b8860b;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Product details */
+.product-details {
+  margin: 1rem 0;
+}
+
+.product-name {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.product-description {
+  font-size: 15px;
+  color: #666;
+}
+
+a.add-to-cart {
+  font-size: 16px;
+  color: #b8860b; /* Gold color */
+  text-decoration: none;
+  position: relative;
+  margin-top: 1.25rem;
+  display: inline-block;
+}
+
+a.add-to-cart:hover {
+  cursor: pointer;
+}
+
+.hover-line {
+  position: absolute;
+  left: 0;
+  top: 32px;
+  width: 0;
+  height: 2px;
+  background-color: #b8860b;
+  transition: width 0.3s ease;
+}
+
+a.add-to-cart:hover .hover-line {
+  width: 100%;
+  color: #b8860b !important;
+}

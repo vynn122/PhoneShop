@@ -1,0 +1,96 @@
+{% extends './base.html' %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Phone Shop{% endblock %}</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/listLogo.css' %}" />
+  </head>
+  <body>
+    <!-- content  -->
+    {% block content %}
+    <section class="hero" data-aos="zoom-in" data-aos-duration="1000">
+      <div class="vdo-hero">
+        <video
+          src="{% static 'images/large.mp4' %}"
+          playsinline
+          autoplay
+          muted
+          loop
+        ></video>
+      </div>
+
+      <div class="hero-content">
+        <h1>Find Your Perfect Phone</h1>
+        <p>Discover the latest smartphones at amazing prices</p>
+        <div class="cta-button"><a href="#products">Shop Now</a></div>
+      </div>
+    </section>
+
+    <section
+      id="products"
+      class="list-logo-container"
+      data-aos="zoom-in-down"
+      data-aos-duration="1000"
+      data-aos-easing="ease-in-sine"
+    >
+      <div class="list-logo"></div>
+    </section>
+
+    <section
+      class="pro-container"
+      data-aos="fade-right"
+      data-aos-duration="1000"
+    >
+      <div class="content-name">
+        <h3 data-aos="zoom-in-down" data-aos-duration="1000">New Arrivals</h3>
+        <hr />
+      </div>
+
+      <div class="grid">
+        <!-- The wrapper for product cards -->
+        {% for product in new_arri %}
+        <div class="product-card">
+          <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          <div class="price-container">
+            {% if product.discountPercentange %}
+            <div class="original-price" style="text-decoration: line-through">
+              ${{ product.price }}
+            </div>
+            <div class="discounted-price">${{ product.discounted_price }}</div>
+            {% else %}
+            <div class="price font-bold underline">${{ product.price }}</div>
+            {% endif %}
+          </div>
+          <!-- Product Details -->
+          <div class="product-details">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <!-- Add to Cart Button -->
+          <a class="add-to-cart" href="#">
+            Add to Cart
+            <span class="hover-line"></span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    {% endblock %}
+    <!-- end content -->
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'js/listLogo.js' %}"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>

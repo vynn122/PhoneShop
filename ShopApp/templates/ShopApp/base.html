@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Phone Shop{% endblock %}</title>
+
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/listLogo.css' %}" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body style="overflow-x: hidden">
+    {% include './components/navigations/navbar.html' %}
+    <!--  -->
+
+    <!--  -->
+    {% block content %}{% endblock %}
+    <!--  -->
+    {% include './components/footer/footer.html' %}
+    <script src="{% static 'js/listLogo.js' %}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
