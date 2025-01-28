@@ -25,7 +25,7 @@ class Phone(models.Model):
         """
         Returns the price after applying the discount percentage.
         """
-        if self.discountPercentange:  # Ensure discountPercentage is not None
+        if self.discountPercentange:  
             discount_amount = (self.discountPercentange / 100) * self.price
             return self.price - discount_amount
         return self.price
