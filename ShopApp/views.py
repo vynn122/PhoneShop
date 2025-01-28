@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import *
 # Create your views here.
 def homepage(request):
-    new_arrivals = Phone.objects.order_by('-created_at')[:6]
+    new_arrivals = Phone.objects.order_by('-created_at')[:8]
     return render(request,'ShopApp/index.html', context={"new_arri":new_arrivals })
 
 def loginpage(request):
