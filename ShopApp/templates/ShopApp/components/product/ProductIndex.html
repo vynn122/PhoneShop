@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/productIndex.css' %}" />
+  </head>
+  <body>
+    <div class="overlay" data-aos="fade-right" data-aos-duration="2000">
+      <h3>
+        Phone Shop, available for Sale | Buy | Installment for all kinds of new
+        and used phones, tablets, smart watches, electronic devices, accessories
+        and computers.
+      </h3>
+    </div>
+    <section class="Block-Con" data-aos="flip-up">
+      <div class="text-content">
+        <a href="" class="left">
+          <h3>
+            <span class="txt-br">Apple</span>
+            <span class="dynamic-wrapper">
+              <span class="dynamic-text visible">iPhone</span>
+              <span class="dynamic-text hidden">iPad</span>
+              <span class="dynamic-text hidden">Watch</span>
+              <span class="dynamic-text hidden">Macbook</span>
+              <span class="dynamic-text hidden">Accessory</span>
+            </span>
+          </h3>
+        </a>
+        <a class="btn-view" href="">
+          View All<i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+      <hr />
+
+      <div class="grid">
+        <!-- The wrapper for product cards -->
+        {% for product in iphone_phones %}
+        <div class="product-card">
+          <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          <div class="price-container">
+            {% if product.discountPercentange %}
+            <div class="original-price" style="text-decoration: line-through">
+              ${{ product.price }}
+            </div>
+            <div class="discounted-price">${{ product.discounted_price }}</div>
+            {% else %}
+            <div class="price font-bold underline">${{ product.price }}</div>
+            {% endif %}
+          </div>
+          <!-- Product Details -->
+          <div class="product-details">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <!-- Add to Cart Button -->
+          <a class="add-to-cart" href="#">
+            Add to Cart
+            <span class="hover-line"></span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <!-- end apple -->
+    <!-- start ss -->
+    <section class="Block-Con" data-aos="flip-up">
+      <div class="text-content">
+        <a href="" class="left">
+          <h3>
+            <span class="txt-br">Samsung</span>
+            <span class="dynamic-wrapper">
+              <span class="dynamic-text visible">Galaxy Mobile</span>
+              <span class="dynamic-text hidden">Galaxy Tab</span>
+              <span class="dynamic-text hidden">Galaxy Watch</span>
+              <span class="dynamic-text hidden">Accessory</span>
+            </span>
+          </h3>
+        </a>
+        <a class="btn-view" href="">
+          View All<i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+      <hr />
+
+      <div class="grid">
+        <!-- The wrapper for product cards -->
+        {% for product in Samsung_phones %}
+        <div class="product-card">
+          <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          <div class="price-container">
+            {% if product.discountPercentange %}
+            <div class="original-price" style="text-decoration: line-through">
+              ${{ product.price }}
+            </div>
+            <div class="discounted-price">${{ product.discounted_price }}</div>
+            {% else %}
+            <div class="price font-bold underline">${{ product.price }}</div>
+            {% endif %}
+          </div>
+          <!-- Product Details -->
+          <div class="product-details">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <!-- Add to Cart Button -->
+          <a class="add-to-cart" href="#">
+            Add to Cart
+            <span class="hover-line"></span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <!-- end ss -->
+    <!-- start oppo -->
+    <section class="Block-Con" data-aos="flip-up">
+      <div class="text-content">
+        <a href="" class="left">
+          <h3>
+            <span class="txt-br">Oppo</span>
+            <span class="dynamic-wrapper">
+              <span class="dynamic-text visible">Mobile</span>
+              <span class="dynamic-text hidden">Tablet</span>
+              <span class="dynamic-text hidden">Watch</span>
+              <span class="dynamic-text hidden">Accessory</span>
+            </span>
+          </h3>
+        </a>
+        <a class="btn-view" href="">
+          View All<i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+      <hr />
+
+      <div class="grid">
+        <!-- The wrapper for product cards -->
+        {% for product in Oppo_phones %}
+        <div class="product-card">
+          <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          <div class="price-container">
+            {% if product.discountPercentange %}
+            <div class="original-price" style="text-decoration: line-through">
+              ${{ product.price }}
+            </div>
+            <div class="discounted-price">${{ product.discounted_price }}</div>
+            {% else %}
+            <div class="price font-bold underline">${{ product.price }}</div>
+            {% endif %}
+          </div>
+          <!-- Product Details -->
+          <div class="product-details">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <!-- Add to Cart Button -->
+          <a class="add-to-cart" href="#">
+            Add to Cart
+            <span class="hover-line"></span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <!-- end oppo -->
+    <section class="Block-Con" data-aos="flip-up">
+      <div class="text-content">
+        <a href="" class="left">
+          <h3>
+            <span class="txt-br">Vivo</span>
+            <span class="dynamic-wrapper">
+              <span class="dynamic-text visible">Mobile</span>
+              <span class="dynamic-text hidden">Accessory</span>
+            </span>
+          </h3>
+        </a>
+        <a class="btn-view" href="">
+          View All<i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+      <hr />
+
+      <div class="grid">
+        <!-- The wrapper for product cards -->
+        {% for product in Vivo_phones %}
+        <div class="product-card">
+          <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          <div class="price-container">
+            {% if product.discountPercentange %}
+            <div class="original-price" style="text-decoration: line-through">
+              ${{ product.price }}
+            </div>
+            <div class="discounted-price">${{ product.discounted_price }}</div>
+            {% else %}
+            <div class="price font-bold underline">${{ product.price }}</div>
+            {% endif %}
+          </div>
+          <!-- Product Details -->
+          <div class="product-details">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <!-- Add to Cart Button -->
+          <a class="add-to-cart" href="#">
+            Add to Cart
+            <span class="hover-line"></span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="{% static 'js/productIndex.js' %}"></script>
+  </body>
+</html>

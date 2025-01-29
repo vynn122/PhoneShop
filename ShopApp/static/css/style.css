@@ -138,7 +138,7 @@
 /* product */
 
 .pro-container {
-  width: 90%;
+  width: 80%;
   margin: auto;
   margin-top: 50px;
   border: 2px solid rgba(207, 214, 255, 0.66);
@@ -168,7 +168,7 @@
 }
 
 .product-card {
-  width: 300px;
+  width: 200px;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -191,7 +191,7 @@
 /* Product Image */
 .product-image {
   width: 120px;
-  height: 200px;
+  height: 150px;
   object-fit: fill;
   margin-bottom: 1rem;
 }
@@ -205,7 +205,7 @@
 }
 
 .original-price {
-  font-size: 16px;
+  font-size: 14px;
   color: #b8860b;
   opacity: 0.6;
   margin-right: 5px;
@@ -233,7 +233,7 @@
 }
 
 .product-name {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 0.25rem;
 }
@@ -270,3 +270,4 @@ a.add-to-cart:hover .hover-line {
   width: 100%;
   color: #b8860b !important;
 }
+/* end product */

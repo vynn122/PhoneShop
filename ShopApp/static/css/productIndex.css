@@ -1,0 +1,88 @@
+.overlay {
+  margin-top: 30px;
+  background-color: #007aff;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.overlay h3 {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-weight: 500;
+}
+/* end  */
+/* starting apple */
+
+.txt-br {
+  font-weight: 500;
+  font-size: 20px;
+  color: #b8860b;
+}
+.dynamic-text {
+  font-weight: 500;
+  font-size: 20px;
+  display: none;
+  position: absolute;
+}
+/* .visible {
+  display: inline;
+} */
+.dynamic-text {
+  color: #b8860b;
+  padding-left: 5px;
+  display: inline-block;
+  transition: opacity 0.8s;
+}
+.hidden {
+  opacity: 0;
+}
+.visible {
+  opacity: 1;
+}
+.visible {
+  animation: slideIn 1s forwards;
+}
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+.text-content {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-view {
+  color: #b8860b;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+.btn-view .fa-solid.fa-chevron-right {
+  margin-left: 5px;
+}
+.btn-view:hover {
+  transform: scale(110%);
+}
+
+hr {
+  margin: 10px auto;
+  border: 1.5px solid #b8860b;
+}
+.Block-Con {
+  width: 80%;
+  margin: auto;
+  margin-top: 50px;
+  /* border: 2px solid rgba(207, 214, 255, 0.66); */
+  border-radius: 20px;
+  box-shadow: 0px 0px 26px -12px rgba(0, 0, 0, 0.29);
+  padding: 20px;
+}
+/* end apple */
