@@ -56,9 +56,6 @@ def about(request):
 
 
 
-
-
-
 # register
 def register_customer(request):
     storage = get_messages(request)
