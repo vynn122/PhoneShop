@@ -40,17 +40,71 @@ def homepage(request):
     return render(request,'ShopApp/index.html', context)
 def all_phones(request):
     all_phones = Phone.objects.all()
+    iphone_phones = Phone.objects.filter(brand__name="Apple")
+    Samsung_phones = Phone.objects.filter(brand__name="SamSung")
+    Oppo_phones = Phone.objects.filter(brand__name="Oppo")
+    Vivo_phones = Phone.objects.filter(brand__name="Vivo")
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
     if not customer:
         customer = Customer.objects.filter(name="Guest").first()
     context = {
         "customer": customer,
-        "all_phones": all_phones
+        "all_phones": all_phones,
+        "iphone_phones": iphone_phones,
+        "Samsung_phones": Samsung_phones,
+        "Oppo_phones": Oppo_phones,
+        "Vivo_phones": Vivo_phones,
     }
     return render(request, 'ShopApp/components/product/all_phones.html', context)
+def brand_iphone(request):
+    iphone_phones = Phone.objects.filter(brand__name="Apple")
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        customer = Customer.objects.filter(name="Guest").first()
+    context = {
+        "customer": customer,
+        "iphone_phones": iphone_phones,
+    }
+    return render(request, 'ShopApp/components/product/iphone.html', context)
+def brand_samsung(request):
+    Samsung_phones = Phone.objects.filter(brand__name="SamSung")
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        customer = Customer.objects.filter(name="Guest").first() 
+    context = {
+        "customer": customer,
+        "Samsung_phones": Samsung_phones,
+    }
+    return render(request, 'ShopApp/components/product/ss.html', context)
+
+def brand_oppo(request):
+    Oppo_phones = Phone.objects.filter(brand__name="Oppo")
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        customer = Customer.objects.filter(name="Guest").first() 
+    context = {
+        "customer": customer,
+        "Oppo_phones": Oppo_phones,
+    }
+    return render(request, 'ShopApp/components/product/oppo.html', context)
+
+def brand_vivo(request):
+    Vivo_phones = Phone.objects.filter(brand__name="Vivo")
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        customer = Customer.objects.filter(name="Guest").first() 
+    context = {
+        "customer": customer,
+        "Vivo_phones": Vivo_phones,
+    }
+    return render(request, 'ShopApp/components/product/vivo.html', context)
+
 
 def about(request):
-    return render(request, 'ShopApp/components/aboutUs/about.html')
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        customer = Customer.objects.filter(name="Guest").first()
+    return render(request, 'ShopApp/components/aboutUs/about.html', {"customer": customer})
 
 
 

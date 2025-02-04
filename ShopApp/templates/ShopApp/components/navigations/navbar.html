@@ -73,6 +73,7 @@
               <a href="" id="logoutBtn"
                 >Logout <i class="fa-solid fa-right-to-bracket"></i
               ></a>
+
               {% else %}
               <a href="{% url 'loginpage' %}">
                 login <i class="fa-solid fa-right-to-bracket"></i>
@@ -122,13 +123,13 @@
             </a>
 
             <ul class="submenu">
-              <li><a href="">Apple</a></li>
+              <li><a href="{% url 'brand_iphone' %}">Apple</a></li>
               <li>
-                <a href="">Samsung</a>
+                <a href="{% url 'brand_samsung' %}">Samsung</a>
               </li>
-              <li><a href="">Oppo</a></li>
+              <li><a href="{% url 'brand_oppo' %}">Oppo</a></li>
               <li>
-                <a href="">Vivo</a>
+                <a href="{% url 'brand_vivo' %}">Vivo</a>
               </li>
             </ul>
           </li>
