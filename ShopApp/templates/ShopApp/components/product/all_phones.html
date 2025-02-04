@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Phone Shop{% endblock %}</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="icon" href="{% static 'images/logo.png' %}" />
     <link rel="stylesheet" href="{% static 'css/productIndex.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
@@ -12,7 +13,7 @@
   <body>
     {% include '../navigations/navbar.html' %}
     <!--  -->
-    <section class="Block-Con" data-aos="flip-up">
+    <section class="Block-Con" data-aos="zoom-in" data-aos-duration="1000">
       <div class="text-content">
         <a href="{% url 'brand_iphone' %}" class="left">
           <h3>
@@ -36,11 +37,14 @@
         <!-- The wrapper for product cards -->
         {% for product in iphone_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -71,7 +75,7 @@
     </section>
     <!-- end apple -->
     <!-- start ss -->
-    <section class="Block-Con" data-aos="flip-up">
+    <section class="Block-Con" data-aos="zoom-in" data-aos-duration="1000">
       <div class="text-content">
         <a href="{% url 'brand_samsung' %}" class="left">
           <h3>
@@ -94,11 +98,14 @@
         <!-- The wrapper for product cards -->
         {% for product in Samsung_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -125,7 +132,7 @@
     </section>
     <!-- end ss -->
     <!-- start oppo -->
-    <section class="Block-Con" data-aos="flip-up">
+    <section class="Block-Con" data-aos="zoom-in" data-aos-duration="1000">
       <div class="text-content">
         <a href="{% url 'brand_oppo' %}" class="left">
           <h3>
@@ -148,11 +155,14 @@
         <!-- The wrapper for product cards -->
         {% for product in Oppo_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -178,7 +188,7 @@
       </div>
     </section>
     <!-- end oppo -->
-    <section class="Block-Con" data-aos="flip-up">
+    <section class="Block-Con" data-aos="zoom-in" data-aos-duration="1000">
       <div class="text-content">
         <a href="{% url 'brand_vivo' %}" class="left">
           <h3>
@@ -199,11 +209,14 @@
         <!-- The wrapper for product cards -->
         {% for product in Vivo_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -230,5 +243,9 @@
     </section>
     {% include '../footer/footer.html' %}
     <script src="{% static 'js/productIndex.js' %}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
   </body>
 </html>

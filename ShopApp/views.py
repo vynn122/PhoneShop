@@ -99,6 +99,21 @@ def brand_vivo(request):
     }
     return render(request, 'ShopApp/components/product/vivo.html', context)
 
+def single_product(request, product_id):
+    product = get_object_or_404(Phone, id=product_id)
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        customer = Customer.objects.filter(name="Guest").first()
+
+    context = {
+        "product": product,
+        "customer": customer,
+    }
+    return render(request, "ShopApp/components/product/single_product.html", context)
+
+
+
+
 
 def about(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()

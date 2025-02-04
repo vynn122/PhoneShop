@@ -70,7 +70,7 @@
 
             <div class="loging">
               {% if customer and customer.name != "Guest" %}
-              <a href="" id="logoutBtn"
+              <a href="" class="logoutBtn"
                 >Logout <i class="fa-solid fa-right-to-bracket"></i
               ></a>
 
@@ -99,14 +99,20 @@
                 <i id="icon" class="fa-solid fa-caret-down"></i>
               </a>
               <ul class="submenu" id="submenu">
-                <li><a href="">Apple</a></li>
-                <li><a href="">Samsung</a></li>
-                <li><a href="">Oppo</a></li>
-                <li><a href="">Vivo</a></li>
+                <li><a href="{% url 'brand_iphone' %}">Apple</a></li>
+                <li><a href="{% url 'brand_samsung' %}">Samsung</a></li>
+                <li><a href="{% url 'brand_oppo' %}">Oppo</a></li>
+                <li><a href="{% url 'brand_vivo' %}">Vivo</a></li>
               </ul>
             </li>
-            <li><a href="contact.php">Contact</a></li>
-            <li id="log"><a href="contact.php">Login</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li id="log">
+              {% if customer and customer.name != "Guest" %}
+              <a href="" class="logoutBtn">Logout</a>
+              {% else %}
+              <a href="{% url 'loginpage' %}">Login</a>
+              {% endif %}
+            </li>
           </ul>
         </div>
 
@@ -140,9 +146,8 @@
     <script src="{% static 'js/navbar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      document
-        .getElementById("logoutBtn")
-        .addEventListener("click", function (event) {
+      document.querySelectorAll(".logoutBtn").forEach((btnLogout) => {
+        btnLogout.addEventListener("click", function (event) {
           event.preventDefault();
           Swal.fire({
             title: "Are you sure bro?",
@@ -166,6 +171,7 @@
             }
           });
         });
+      });
     </script>
   </body>
 </html>

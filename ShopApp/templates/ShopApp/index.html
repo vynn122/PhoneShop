@@ -55,11 +55,14 @@
         <!-- The wrapper for product cards -->
         {% for product in new_arri %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">

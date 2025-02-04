@@ -18,7 +18,7 @@
     </div>
     <section class="Block-Con" data-aos="flip-up">
       <div class="text-content">
-        <a href="" class="left">
+        <a href="{% url 'brand_iphone' %}" class="left">
           <h3>
             <span class="txt-br">Apple</span>
             <span class="dynamic-wrapper">
@@ -40,11 +40,14 @@
         <!-- The wrapper for product cards -->
         {% for product in iphone_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -77,7 +80,7 @@
     <!-- start ss -->
     <section class="Block-Con" data-aos="flip-up">
       <div class="text-content">
-        <a href="" class="left">
+        <a href="{% url 'brand_samsung' %}" class="left">
           <h3>
             <span class="txt-br">Samsung</span>
             <span class="dynamic-wrapper">
@@ -98,11 +101,14 @@
         <!-- The wrapper for product cards -->
         {% for product in Samsung_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -131,7 +137,7 @@
     <!-- start oppo -->
     <section class="Block-Con" data-aos="flip-up">
       <div class="text-content">
-        <a href="" class="left">
+        <a href="{% url 'brand_oppo' %}" class="left">
           <h3>
             <span class="txt-br">Oppo</span>
             <span class="dynamic-wrapper">
@@ -152,11 +158,14 @@
         <!-- The wrapper for product cards -->
         {% for product in Oppo_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">
@@ -184,7 +193,7 @@
     <!-- end oppo -->
     <section class="Block-Con" data-aos="flip-up">
       <div class="text-content">
-        <a href="" class="left">
+        <a href="{% url 'brand_vivo' %}" class="left">
           <h3>
             <span class="txt-br">Vivo</span>
             <span class="dynamic-wrapper">
@@ -203,11 +212,14 @@
         <!-- The wrapper for product cards -->
         {% for product in Vivo_phones %}
         <div class="product-card">
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="product-image"
-          />
+          <a href="{% url 'single_product' product.id %}">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="product-image"
+            />
+          </a>
+
           <div class="price-container">
             {% if product.discountPercentange %}
             <div class="original-price" style="text-decoration: line-through">

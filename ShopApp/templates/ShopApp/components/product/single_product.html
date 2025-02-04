@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Phone Shop{% endblock %}</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/singlePro.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    {% include '../navigations/navbar.html' %}
+    <section class="single-product" data-aos="zoom-in" data-aos-duration="1000">
+      <div class="product-container">
+        <!-- Product Images -->
+        <div class="product-images">
+          <div class="main-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+          </div>
+          <!-- <div class="thumbnail-images">
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="active"
+            />
+            <img
+              src="{% static 'images/default-thumbnail.jpg' %}"
+              alt="{{ product.name }} Side"
+            />
+            <img
+              src="{% static 'images/default-thumbnail.jpg' %}"
+              alt="{{ product.name }} Back"
+            />
+          </div> -->
+        </div>
+
+        <!-- Product Details -->
+        <div class="product-details" id="product-detail">
+          <div class="product-breadcrumb">
+            <a href="{% url 'homepage' %}">Home</a> /
+            <a href="{% url 'all_phones' %}">All Products</a> /
+            <span>{{ product.name }}</span>
+          </div>
+
+          <h1>{{ product.name }}</h1>
+
+          <!-- Rating (Placeholder: Add ratings later if available in model) -->
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(120 reviews)</span>
+          </div>
+
+          <!-- Pricing -->
+          <div class="product-price">
+            {% if product.discountPercentange %}
+            <span class="current-price">${{ product.discounted_price }}</span>
+            <span class="original-price" style="text-decoration: line-through"
+              >${{ product.price }}</span
+            >
+            <span class="discount">-{{ product.discountPercentange }}%</span>
+            {% else %}
+            <span class="current-price">${{ product.price }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Description -->
+          <div class="product-description">
+            <p>{{ product.description|default:"No description available." }}</p>
+          </div>
+
+          <!-- Variants (Placeholder for Storage & Colors) -->
+          <div class="product-variants">
+            <h3>Storage</h3>
+            <div class="variant-options">
+              <button class="variant-btn active">
+                {{ product.description }}
+              </button>
+              <!-- <button class="variant-btn">256GB</button>
+              <button class="variant-btn">512GB</button>
+              <button class="variant-btn">1TB</button> -->
+            </div>
+
+            <h3>Color</h3>
+            <div class="color-options">
+              <button
+                class="color-btn active"
+                style="background-color: #574f6f"
+              >
+                <!-- Space Black -->
+              </button>
+              <button class="color-btn" style="background-color: #f1f2ed">
+                <!-- Silver -->
+              </button>
+              <button class="color-btn" style="background-color: #f9e5c9">
+                <!-- Gold -->
+              </button>
+              <button class="color-btn" style="background-color: #574f6f">
+                <!-- Deep Purple -->
+              </button>
+            </div>
+          </div>
+
+          <!-- Add to Cart -->
+          <div class="product-actions">
+            <div class="quantity-selector">
+              <button class="quantity-btn" id="decrease">-</button>
+              <input type="number" value="1" min="1" max="10" id="quantity" />
+              <button class="quantity-btn" id="increase">+</button>
+            </div>
+
+            <form action="" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+            </form>
+          </div>
+
+          <!-- Additional Info -->
+          <div class="product-meta">
+            <div class="meta-item">
+              <i class="fas fa-truck"></i>
+              <span>Free shipping on orders over $500</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-box"></i>
+              <span>Free 30-day returns</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>2 year warranty</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include '../footer/footer.html' %}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
