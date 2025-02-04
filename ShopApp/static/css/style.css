@@ -1,15 +1,7 @@
-/* Hero Section */
-/* .hero {
-  height: 80vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(1, 0, 0, 0.6)),
-    url("../images/large.mp4") center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-} */
-
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
 .hero {
   position: relative;
   height: 86.5vh;

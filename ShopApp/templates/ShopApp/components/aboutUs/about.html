@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
+    <title>About Us - Phone Shop</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        /* padding: 20px; */
+        z-index: 1;
+        position: relative;
+      }
+      .content {
+        transform: translateY(50px);
+        backdrop-filter: blur(10px);
+        background-color: #f3f3f3b1;
+        /* background-color: #fff; */
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        clip-path: polygon(
+          30px 0%,
+          100% 0,
+          100% calc(100% - 30px),
+          calc(100% - 30px) 100%,
+          0 100%,
+          0% 30px
+        );
+      }
+      h2,
+      h3 {
+        color: black;
+        padding: 10px 0;
+      }
+      .p {
+        line-height: 1.6;
+        color: black;
+        padding: 10px 0;
+      }
+      .ul {
+        padding: 10px 0;
+      }
+      .ul > li {
+        line-height: 1.6;
+        color: black;
+      }
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+        .content {
+          padding: 15px;
+        }
+      }
+      /* start vdo */
+      video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0.7;
+      }
+      .footer {
+        position: relative;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    {% include '../navigations/navbar.html' %}
+
+    <div class="container">
+      <video
+        src="{% static 'images/large.mp4' %}"
+        playsinline
+        autoplay
+        muted
+        loop
+      ></video>
+      <div class="content">
+        <h2>About Us</h2>
+        <p>
+          Welcome to <strong>Phone Shop</strong> – Your Premier Destination for
+          Mobile Innovation
+        </p>
+        <h3>Our Story</h3>
+        <p class="p">
+          It all started with a vision to create a hub where mobile enthusiasts
+          could find everything they need. From the latest smartphones to
+          cutting-edge accessories, we aim to stay at the forefront of mobile
+          technology trends. Over the years, we've grown from a small store to a
+          trusted name in the industry, serving thousands of satisfied
+          customers.
+        </p>
+        <h3>Our Commitment</h3>
+        <ul class="ul">
+          <li>
+            <strong>Quality Products</strong>: We offer a curated selection of
+            the highest quality mobile devices and accessories from top brands.
+          </li>
+          <li>
+            <strong>Exceptional Service</strong>: Our knowledgeable and friendly
+            staff are dedicated to providing you with personalized assistance
+            and support.
+          </li>
+          <li>
+            <strong>Competitive Prices</strong>: We strive to offer the best
+            prices and value for your money without compromising on quality.
+          </li>
+          <li>
+            <strong>Customer Satisfaction</strong>: Your satisfaction is our top
+            priority. We go above and beyond to ensure you have a seamless
+            shopping experience.
+          </li>
+        </ul>
+        <h3>Our Team</h3>
+        <p class="p">
+          Our team is made up of passionate tech enthusiasts who are always on
+          the lookout for the latest innovations in the mobile industry. With
+          years of experience and a commitment to excellence, we are here to
+          help you find the perfect device that fits your lifestyle.
+        </p>
+        <h3>Why Choose Us?</h3>
+        <ul>
+          <li>
+            <strong>Wide Selection</strong>: From the latest smartphones to
+            essential accessories, we have it all.
+          </li>
+          <li>
+            <strong>Expert Advice</strong>: Our team is here to guide you
+            through your purchase, ensuring you make an informed decision.
+          </li>
+          <li>
+            <strong>After-Sales Support</strong>: We don't just sell products;
+            we provide ongoing support and assistance to keep you connected.
+          </li>
+        </ul>
+        <h3>Visit Us</h3>
+        <p class="p">
+          Come and visit our store located at Pagoda, Phnom Penh, Cambodia.
+          Experience Phone Shop difference and discover the perfect mobile
+          device for you.
+        </p>
+      </div>
+    </div>
+    <div class="footer">{% include '../footer/footer.html' %}</div>
+  </body>
+</html>

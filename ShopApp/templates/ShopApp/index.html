@@ -1,9 +1,10 @@
-{% extends './base.html' %} {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
     <title>{% block title %}Phone Shop{% endblock %}</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
@@ -11,7 +12,7 @@
   </head>
   <body>
     <!-- content  -->
-    {% block content %}
+    {% include './components/navigations/navbar.html' %}
     <section class="hero" data-aos="zoom-in" data-aos-duration="1000">
       <div class="vdo-hero">
         <video
@@ -83,11 +84,14 @@
         {% endfor %}
       </div>
     </section>
-    {% include './components/product/productIndex.html' %} {% endblock %}
+    {% include './components/product/productIndex.html' %}
+    <!-- footer -->
+    {% include './components/footer/footer.html' %}
     <!-- end content -->
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{% static 'js/listLogo.js' %}"></script>
+    <script src="{% static 'js/productIndex.js' %}"></script>
     <script>
       AOS.init();
     </script>

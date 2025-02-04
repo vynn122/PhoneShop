@@ -86,3 +86,28 @@ hr {
   padding: 20px;
 }
 /* end apple */
+#cart-section {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  z-index: 1000;
+}
+
+#cart-items {
+  list-style: none;
+  padding: 0;
+}
+
+#cart-items li {
+  margin-bottom: 10px;
+}
+
+#total-price {
+  font-weight: bold;
+  margin-top: 10px;
+}

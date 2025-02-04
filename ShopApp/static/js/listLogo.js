@@ -18,7 +18,6 @@ const logos = [
 ];
 
 const logoContainer = document.querySelector(".list-logo-container .list-logo");
-console.log(logoContainer);
 
 if (logoContainer) {
   logoContainer.innerHTML = logos

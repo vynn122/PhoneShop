@@ -13,6 +13,13 @@
   </head>
   <body>
     <nav class="navbar">
+      <div class="name-cu">
+        {% if customer and customer.name != "Guest" %}
+        <p>Hii, {{ customer.name }}</p>
+        {% else %}
+        <!-- <p>Welcome, Guest!</p> -->
+        {% endif %}
+      </div>
       <ul class="nav-list">
         <!-- Logo -->
         <li class="nav-logo">
@@ -30,20 +37,47 @@
               />
             </form>
           </div>
+
+          <!-- view cart -->
+          <div class="cart-container">
+            <div class="cart-items">
+              {% for item in cart_items %}
+              <div class="cart-item">
+                <img
+                  src="{{ item.product.image.url }}"
+                  alt="{{ item.product.name }}"
+                />
+                <p>
+                  {{ item.product.name }} - ${{ item.product.price }} (x{{
+                  item.quantity }})
+                </p>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- end  view cart -->
           <div class="cart-login">
             <!-- Cart -->
             <div class="cart_header">
-              <div onclick="open_cart()" class="icon_cart">
+              <div onclick="openCart()" class="icon_cart">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span class="count_item">0</span>
+                <span class="count_item" id="cart-count">0</span>
               </div>
             </div>
 
             <!-- Login -->
+
             <div class="loging">
+              {% if customer and customer.name != "Guest" %}
+              <a href="" id="logoutBtn"
+                >Logout <i class="fa-solid fa-right-to-bracket"></i
+              ></a>
+              {% else %}
               <a href="{% url 'loginpage' %}">
                 login <i class="fa-solid fa-right-to-bracket"></i>
               </a>
+              {% endif %}
             </div>
           </div>
         </li>
@@ -57,20 +91,21 @@
         <div class="hamburger-menu">
           <ul class="menu-list">
             <li><a href="{% url 'homepage' %}">Home</a></li>
-            <li><a href="about.php">All Products</a></li>
+            <li><a href="{% url 'all_phones' %}">All Products</a></li>
             <li class="dropdown">
-              <a href="javascript:void(0)">
+              <a href="javascript:void(0)" id="dropdown-toggle">
                 Brand
-                <i class="fa-solid fa-caret-down"></i>
+                <i id="icon" class="fa-solid fa-caret-down"></i>
               </a>
-              <ul class="submenu">
+              <ul class="submenu" id="submenu">
                 <li><a href="">Apple</a></li>
                 <li><a href="">Samsung</a></li>
-                <li><a href="">Xiaomi</a></li>
-                <li><a href="">OnePlus</a></li>
+                <li><a href="">Oppo</a></li>
+                <li><a href="">Vivo</a></li>
               </ul>
             </li>
             <li><a href="contact.php">Contact</a></li>
+            <li id="log"><a href="contact.php">Login</a></li>
           </ul>
         </div>
 
@@ -79,7 +114,7 @@
       <div class="nav-menu">
         <ul class="menu-list">
           <li><a href="{% url 'homepage' %}">Home</a></li>
-          <li><a href="about.php">All Products</a></li>
+          <li><a href="{% url 'all_phones' %}">All Products</a></li>
           <li class="dropdown">
             <a href="javascript:void(0)"
               >Brand
@@ -91,16 +126,45 @@
               <li>
                 <a href="">Samsung</a>
               </li>
-              <li><a href="">Xiaomi</a></li>
+              <li><a href="">Oppo</a></li>
               <li>
-                <a href="">OnePlus</a>
+                <a href="">Vivo</a>
               </li>
             </ul>
           </li>
-          <li><a href="contact.php">Contact</a></li>
+          <li><a href="{% url 'about' %}">About Us</a></li>
         </ul>
       </div>
     </nav>
     <script src="{% static 'js/navbar.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          Swal.fire({
+            title: "Are you sure bro?",
+            text: "You want to logout?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, Logout!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Notification!",
+                text: "You have successfully logged out!🤡💩",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false,
+              }).then(() => {
+                window.location.href = "{% url 'logout' %}";
+              });
+            }
+          });
+        });
+    </script>
   </body>
 </html>

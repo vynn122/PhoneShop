@@ -61,7 +61,11 @@
             <div class="product-description">{{ product.description }}</div>
           </div>
           <!-- Add to Cart Button -->
-          <a class="add-to-cart" href="#">
+          <a
+            class="add-to-cart"
+            href="javascript:void(0);"
+            onclick="addToCart('{{ product.id }}')"
+          >
             Add to Cart
             <span class="hover-line"></span>
           </a>

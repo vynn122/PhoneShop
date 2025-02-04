@@ -1,4 +1,4 @@
-let dynamicWrappers = document.querySelectorAll(".dynamic-wrapper");
+var dynamicWrappers = document.querySelectorAll(".dynamic-wrapper");
 dynamicWrappers.forEach((wrapper) => {
   const texts = wrapper.querySelectorAll(".dynamic-text");
   let currentIndex = 0;
@@ -17,3 +17,4 @@ dynamicWrappers.forEach((wrapper) => {
   }
   setInterval(changeText, 3000);
 });
+// new

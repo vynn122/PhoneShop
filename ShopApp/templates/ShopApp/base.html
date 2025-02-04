@@ -7,12 +7,12 @@
     <title>{% block title %}Phone Shop{% endblock %}</title>
 
     <link rel="icon" href="{% static 'images/logo.png' %}" />
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/listLogo.css' %}" />
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   </head>
-  <body style="overflow-x: hidden">
+  <body style="overflow-x: hidden; overflow-y: auto">
     {% include './components/navigations/navbar.html' %}
     <!--  -->
 
@@ -20,10 +20,14 @@
     {% block content %}{% endblock %}
     <!--  -->
     {% include './components/footer/footer.html' %}
+
     <script src="{% static 'js/listLogo.js' %}"></script>
     <script src="{% static 'js/productIndex.js' %}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+      function getCSRFToken() {
+        return document.querySelector("[name=csrfmiddlewaretoken]").value;
+      }
       AOS.init();
     </script>
   </body>

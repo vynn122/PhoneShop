@@ -80,7 +80,8 @@
 
 /* Footer Bottom */
 .footer-bottom {
-  background-color: #222;
+  /* background-color: #222; */
+  background-color: black;
   padding: 10px 0;
   text-align: center;
   color: #ccc;

@@ -34,37 +34,53 @@
           />
         </div>
         <!-- End Monkey Animation -->
-
-        <form id="loginForm" method="POST">
+        <form id="reform" method="POST">
           {% csrf_token %}
           <div class="form-group">
-            <label for="phone_or_email" class="label">Email</label>
             <input
               type="text"
-              id="phone_or_email"
-              name="phone_or_email"
-              placeholder="Email"
+              name="name"
+              id="name"
               required
+              placeholder="Your name"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required
+              placeholder="Your email"
             />
           </div>
           <div class="form-group">
-            <label for="password" class="label">Password</label>
             <input
               type="password"
-              id="password"
               name="password"
-              placeholder="Password"
+              id="password"
               required
+              placeholder="Your password"
             />
           </div>
+
           <div class="form-group">
-            <button type="submit" class="btn" id="btnlogin">Login</button>
+            <button type="submit" class="btn" id="registerBtn">Register</button>
             <p class="p-text">
-              Don't have an account?
-              <a href="{% url 'register' %}">Register here</a>
+              Already have account? <a href="{% url 'loginpage' %}">Login</a>
             </p>
           </div>
         </form>
+        {% if messages %}
+        <div class="messages" style="opacity: 0">
+          {% for message in messages %}
+          <p class="{{ message.tags }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <!-- new -->
+
         {% if messages %}
         <div id="django-messages" style="opacity: 0">
           {% for message in messages %}
@@ -80,6 +96,7 @@
         {% endif %}
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'JS/login.js' %}"></script>
     <script>
@@ -98,43 +115,30 @@
 
           if (messageTag.includes("success")) {
             Swal.fire({
-              title: "Login Successful!",
+              title: "Registration Success!",
               text: messageText,
               icon: "success",
+              showCancelButton: true,
               confirmButtonColor: "#28a745",
-              confirmButtonText: "Go to buy phone 🚀",
-              timer: 2500,
-            }).then(() => {
-              window.location.href = "{% url 'homepage' %}";
+              cancelButtonColor: "#6c757d",
+              confirmButtonText: "Login Now 🚀",
+              cancelButtonText: "Maybe Later",
+              allowOutsideClick: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "{% url 'loginpage' %}";
+              }
             });
           } else if (messageTag.includes("error")) {
-            if (messageText.includes("not our customer yet")) {
-              Swal.fire({
-                title: "Account Not Found!",
-                text: messageText,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#007bff",
-                cancelButtonColor: "#6c757d",
-                confirmButtonText: "Register Now 🚀",
-                cancelButtonText: "Cancel",
-                allowOutsideClick: false,
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = "{% url 'register' %}";
-                }
-              });
-            } else {
-              Swal.fire({
-                title: "Login Failed",
-                text:
-                  messageText ||
-                  "Please check your email||password and try again.",
-                icon: "error",
-                confirmButtonColor: "#d33",
-                confirmButtonText: "Try Again",
-              });
-            }
+            Swal.fire({
+              title: "Registration Failed",
+              text: messageText || "There was an issue with your registration.",
+              icon: "error",
+              confirmButtonColor: "#d33",
+              confirmButtonText: "Try Again",
+            }).then(() => {
+              window.location.href = "{% url 'register' %}";
+            });
           }
         });
         setTimeout(() => {
