@@ -55,3 +55,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+// cart
+// open & close Cart
+
+var cart = document.querySelector(".cart");
+
+function open_cart() {
+  cart.classList.add("active");
+}
+function close_cart() {
+  cart.classList.remove("active");
+}
+
+// open & close menu
+
+var menu = document.querySelector("#menu");
+
+function open_menu() {
+  menu.classList.add("active");
+}
+function close_menu() {
+  menu.classList.remove("active");
+}
+window.onclick = function (event) {
+  let menu = document.querySelector("#menu");
+  if (event.target !== menu && !menu.contains(event.target)) {
+    close_menu();
+  }
+};

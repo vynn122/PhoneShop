@@ -13,6 +13,7 @@ from datetime import timedelta
 from django.views.decorators.cache import never_cache
 from django.contrib.messages import get_messages
 
+
 # Create your views here.
 def homepage(request): 
     new_arrivals = Phone.objects.order_by('-created_at')[:12]
@@ -23,18 +24,18 @@ def homepage(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
     if not customer:
         customer = Customer.objects.filter(name="Guest").first()
-    cart = Cart.objects.filter(customer_name=customer).first()
-    cart_items = cart.items.all() if cart else []
+    # cart = Cart.objects.filter(customer_name=customer).first()
+    # cart_items = cart.items.all() if cart else []
 
-    cart = Cart.objects.filter(customer_name=customer).first()
-    cart_items = cart.items.all() if cart else []
+    # cart = Cart.objects.filter(customer_name=customer).first()
+    # cart_items = cart.items.all() if cart else []
     context={
         "new_arri":new_arrivals,
         "iphone_phones": iphone_phones,
         "Samsung_phones": Samsung_phones,
         "Oppo_phones": Oppo_phones,
         "Vivo_phones": Vivo_phones,
-        "cart_items": cart_items,
+        # "cart_items": cart_items,
         "customer": customer,
     }
     return render(request,'ShopApp/index.html', context)
@@ -182,5 +183,4 @@ def logout_customer(request):
     logout(request)
     request.session.flush()
     return redirect('homepage')
-
 

@@ -51,8 +51,8 @@
 .main-image {
   border-radius: 10px;
   overflow: hidden;
-  height: 700px;
-  background: #f8f9fa;
+  height: 400px;
+  /* background: #f8f9fa; */
 }
 
 .main-image img {

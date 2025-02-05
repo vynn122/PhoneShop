@@ -472,7 +472,112 @@
     display: block;
   }
 }
-.cart-container {
-  display: none;
-  /* Add other styling as needed */
+/* cart */
+.cart {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  bottom: 0;
+  background: #fff;
+  z-index: 1100;
+  padding: 30px;
+  border-left: 1px solid #6666662a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+  transition: right 0.5s ease-in-out;
+}
+.cart.active {
+  right: 0;
+}
+.cart .top_cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart .top_cart h3 {
+  font-size: 14px;
+}
+.cart .top_cart span > i {
+  font-size: 17px;
+  cursor: pointer;
+  font-weight: 800;
+}
+.cart .top_cart h3 span {
+  font-size: 14px;
+  color: #666666;
+  font-weight: normal;
+}
+.cart .items_in_cart {
+  padding: 20px 0;
+  border-block: 1px solid #6666662a;
+  margin-block: 20px;
+  overflow-y: auto;
+  height: 100px;
+}
+.cart .item_cart {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+.cart .item_cart:last-child {
+  margin-bottom: 0;
+}
+.cart .item_cart img {
+  width: 100px;
+}
+.cart .item_cart h4 {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #0066c0;
+}
+.cart .item_cart .delete_item {
+  outline: none;
+  border: none;
+}
+.cart .item_cart .delete_item i {
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.cart .item_cart .delete_item i:hover {
+  color: #d01418;
+  transform: scale(1.2);
+}
+.cart .bottom_Cart .total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.cart .bottom_Cart .total .price_cart_total {
+  color: #fcb700;
+}
+.cart .button_Cart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cart .button_Cart .btn_cart {
+  border: 2px solid #fcb700;
+  border-radius: 5px;
+  color: #222222;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: #fcb700;
+  transition: 0.3s ease;
+}
+.cart .button_Cart .btn_cart:hover {
+  background: transparent;
+}
+.cart .button_Cart .trans_bg {
+  background: transparent;
+}
+.cart .button_Cart .trans_bg:hover {
+  background: #fcb700;
 }

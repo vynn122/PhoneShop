@@ -22,23 +22,7 @@
           <div class="main-image">
             <img src="{{ product.image.url }}" alt="{{ product.name }}" />
           </div>
-          <!-- <div class="thumbnail-images">
-            <img
-              src="{{ product.image.url }}"
-              alt="{{ product.name }}"
-              class="active"
-            />
-            <img
-              src="{% static 'images/default-thumbnail.jpg' %}"
-              alt="{{ product.name }} Side"
-            />
-            <img
-              src="{% static 'images/default-thumbnail.jpg' %}"
-              alt="{{ product.name }} Back"
-            />
-          </div> -->
         </div>
-
         <!-- Product Details -->
         <div class="product-details" id="product-detail">
           <div class="product-breadcrumb">
@@ -83,28 +67,6 @@
             <div class="variant-options">
               <button class="variant-btn active">
                 {{ product.description }}
-              </button>
-              <!-- <button class="variant-btn">256GB</button>
-              <button class="variant-btn">512GB</button>
-              <button class="variant-btn">1TB</button> -->
-            </div>
-
-            <h3>Color</h3>
-            <div class="color-options">
-              <button
-                class="color-btn active"
-                style="background-color: #574f6f"
-              >
-                <!-- Space Black -->
-              </button>
-              <button class="color-btn" style="background-color: #f1f2ed">
-                <!-- Silver -->
-              </button>
-              <button class="color-btn" style="background-color: #f9e5c9">
-                <!-- Gold -->
-              </button>
-              <button class="color-btn" style="background-color: #574f6f">
-                <!-- Deep Purple -->
               </button>
             </div>
           </div>
