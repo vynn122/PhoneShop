@@ -173,7 +173,7 @@ def login_customer(request):
                 request.session["customer_id"] = customer.id  
                 request.session["customer_name"] = customer.name
                 #use this to set session expire in 30 minutes
-                request.session.set_expiry(timedelta(minutes=130))
+                request.session.set_expiry(timedelta(minutes=60))
                 messages.success(request, f"Login successful! Welcome back bro {customer.name} 💩")
                 # return redirect("homepage")
             else:
@@ -267,5 +267,39 @@ def updateItem(request):
 
     return JsonResponse({'message': 'Item updated', 'quantity': cart.quantity}, safe=False)
 
+def success_page(request):
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    transactions = Transaction.objects.filter(customer=customer)
 
 
+    return render(request, "ShopApp/success.html", {'transactions': transactions})
+
+
+
+def checkout(request):
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    if not customer:
+        messages.error(request, "You need to log in to proceed with checkout.")
+        return redirect("loginpage")
+
+    cart_items = CartItem.objects.filter(customer=customer)
+    if not cart_items.exists():
+        messages.warning(request, "Your cart is empty.")
+        return redirect("homepage")  
+
+    transactions = [
+        Transaction(
+            customer=customer,
+            phone=item.phone,
+            brand=item.phone.brand,
+            quantity=item.quantity,
+            total_price=item.phone.discounted_price() * item.quantity,
+        )
+        for item in cart_items
+    ]
+
+    Transaction.objects.bulk_create(transactions)  
+    cart_items.delete()  
+
+    messages.success(request, "Checkout successful! Your order has been placed.")
+    return redirect("checkout_success")

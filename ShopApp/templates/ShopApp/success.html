@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
+    <title>{% block title %}Phone Shop{% endblock %}</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .success-container {
+      text-align: center;
+    }
+
+    .success-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .checkmark-icon {
+      margin-bottom: 15px;
+      animation: jump 1s ease-in-out infinite;
+    }
+
+    @keyframes jump {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #2c7a2c;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #ddd;
+      margin: 20px 0;
+    }
+
+    .order-details p {
+      text-align: left;
+      margin: 10px 0;
+    }
+
+    .shop-btn {
+      display: inline-block;
+      background-color: #2c7a2c;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: background 0.3s;
+      margin-top: 20px;
+    }
+
+    .shop-btn:hover {
+      background-color: #226622;
+    }
+  </style>
+  <body>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" style="display: none">
+      {{ message }}
+    </div>
+    {% endfor %} {% endif %}
+    <div class="success-container">
+      <div class="success-card">
+        <div class="checkmark-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="80"
+            height="80"
+            fill="green"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M9 16.2l-4.2-4.2-1.4 1.4 5.6 5.6 10.6-10.6-1.4-1.4z"
+            ></path>
+          </svg>
+        </div>
+        <h2>Order Placed Successfully!</h2>
+        <p>
+          Thank you for your purchase! Your order has been received and is being
+          processed.
+        </p>
+        <hr />
+        <div class="order-details">
+          <p><strong>Order Status:</strong> Success</p>
+          <p><strong>Estimated Delivery:</strong> 3-5 business days</p>
+        </div>
+        <a href="{% url 'homepage' %}" class="shop-btn">Continue Shopping</a>
+      </div>
+    </div>
+    <script>
+      setTimeout(function () {
+        let alerts = document.querySelectorAll(".alert");
+        alerts.forEach((alert) => {
+          alert.style.display = "none";
+        });
+      }, 3000); // Hide alert after 3 seconds
+    </script>
+  </body>
+</html>
