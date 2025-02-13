@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from .models import *
-from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
@@ -12,6 +10,10 @@ from django.utils.timezone import now
 from datetime import timedelta
 from django.views.decorators.cache import never_cache
 from django.contrib.messages import get_messages
+# from ...test.work.moha_work.utils import *
+import json
+from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -24,11 +26,11 @@ def homepage(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
     if not customer:
         customer = Customer.objects.filter(name="Guest").first()
-    # cart = Cart.objects.filter(customer_name=customer).first()
-    # cart_items = cart.items.all() if cart else []
-
-    # cart = Cart.objects.filter(customer_name=customer).first()
-    # cart_items = cart.items.all() if cart else []
+    customer_id = request.session.get("customer_id")
+    customer = None
+    print(customer)
+    if customer_id:
+        customer = Customer.objects.filter(id=customer_id).first()
     context={
         "new_arri":new_arrivals,
         "iphone_phones": iphone_phones,
@@ -46,8 +48,13 @@ def all_phones(request):
     Oppo_phones = Phone.objects.filter(brand__name="Oppo")
     Vivo_phones = Phone.objects.filter(brand__name="Vivo")
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
-    if not customer:
-        customer = Customer.objects.filter(name="Guest").first()
+    # if not customer:
+    #     customer = Customer.objects.filter(name="Guest").first()
+    customer_id = request.session.get("customer_id")
+    customer = None
+    print(customer)
+    if customer_id:
+        customer = Customer.objects.filter(id=customer_id).first()
     context = {
         "customer": customer,
         "all_phones": all_phones,
@@ -55,6 +62,7 @@ def all_phones(request):
         "Samsung_phones": Samsung_phones,
         "Oppo_phones": Oppo_phones,
         "Vivo_phones": Vivo_phones,
+        
     }
     return render(request, 'ShopApp/components/product/all_phones.html', context)
 def brand_iphone(request):
@@ -160,11 +168,12 @@ def login_customer(request):
 
         try:
             customer = Customer.objects.get(email=email)
-            if customer.check_password(password): 
+            if customer.check_password(password):
+              
                 request.session["customer_id"] = customer.id  
                 request.session["customer_name"] = customer.name
                 #use this to set session expire in 30 minutes
-                request.session.set_expiry(timedelta(minutes=30))
+                request.session.set_expiry(timedelta(minutes=130))
                 messages.success(request, f"Login successful! Welcome back bro {customer.name} 💩")
                 # return redirect("homepage")
             else:
@@ -183,4 +192,80 @@ def logout_customer(request):
     logout(request)
     request.session.flush()
     return redirect('homepage')
+
+# create login required decorator
+def login_required(view_func):
+    """Custom login required decorator for session-based authentication."""
+    def wrapper(request, *args, **kwargs):
+        if 'customer_id' not in request.session:
+            messages.error(request, "You need to log in to continue!")
+            return redirect("loginpage")
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+@login_required
+def updateItem(request):
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    productId = data.get('productId')
+    action = data.get('action')
+
+    if not productId or not action:
+        return JsonResponse({'error': 'Missing productId or action'}, status=400)
+
+    print('Action:', action)
+    print('Product:', productId)
+
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    product = Phone.objects.filter(id=productId).first()
+
+    if not product:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+
+    cart, created = CartItem.objects.get_or_create(customer=customer, phone=product)
+    
+
+    if action == 'add':
+        cart.quantity += 1
+    elif action == 'remove':
+        cart.quantity -= 1
+
+    if cart.quantity <= 0:
+        cart.delete()
+    else:
+        cart.save()
+        # test
+    cart_items = CartItem.objects.filter(customer=customer)
+    cart_total = sum(item.phone.discounted_price() * item.quantity for item in cart_items)
+    cart_count = cart_items.count()
+    cart_quantity = sum(item.quantity for item in cart_items) 
+
+    cart_items_list = [
+        {
+            'id': item.phone.id,
+            'name': item.phone.name,
+            'image': item.phone.image.url if item.phone.image else '',
+            'price': item.phone.discounted_price(),
+            'quantity': item.quantity,
+        }
+        for item in cart_items
+    ]
+    
+    return JsonResponse({
+        'message': 'Item updated',
+        'cart_items': cart_items_list,
+        'cart_total': cart_total,
+        'cart_quantity' : cart_quantity,
+    })
+
+    return JsonResponse({'message': 'Item updated', 'quantity': cart.quantity}, safe=False)
+
+
 

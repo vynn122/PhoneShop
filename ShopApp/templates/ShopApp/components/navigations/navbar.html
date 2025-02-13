@@ -10,14 +10,66 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+    <script type="text/javascript">
+      var customer = "{{ customer.name|default:''|escapejs }}";
+      function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        console.log("Customer:", customer);
+        return cookieValue;
+      }
+      var csrftoken = getToken("csrftoken");
+
+      function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for (var i = 0; i < cookieArr.length; i++) {
+          var cookiePair = cookieArr[i].split("=");
+
+          /* Removing whitespace at the beginning of the cookie name
+              and compare it with the given string */
+          if (name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+          }
+        }
+
+        // Return null if not found
+        return null;
+      }
+      var cart = JSON.parse(getCookie("cart"));
+
+      if (cart == undefined) {
+        cart = {};
+        console.log("Cart Created!", cart);
+        document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+      }
+      console.log("Cart:", cart);
+    </script>
   </head>
   <body>
     <nav class="navbar">
       <div class="name-cu">
         {% if customer and customer.name != "Guest" %}
         <p>Hii, {{ customer.name }}</p>
+        <span id="checking" data-auth="true" hidden></span>
         {% else %}
         <!-- <p>Welcome, Guest!</p> -->
+        <span id="checking" data-auth="false" hidden></span>
         {% endif %}
       </div>
       <ul class="nav-list">
@@ -44,36 +96,115 @@
             <div class="cart_header">
               <div onclick="open_cart()" class="icon_cart">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span class="count_item" id="cart-count">0</span>
+                <span class="count_item" id="cart-count"
+                  >{{ cart_quantity }}</span
+                >
               </div>
             </div>
 
             <!-- start cart model -->
             <div class="cart">
               <div class="top_cart">
-                <h3>My Cart <span>(0 Items in Cart)</span></h3>
-                <span onclick="close_cart()">
-                  <i class="fa-solid fa-x"></i>
-                </span>
+                <h3>
+                  My Cart
+                  <span class="cart-title">
+                    <!-- cart_items|length -->
+                    ({{ cart_quantity }} Items in Cart)
+                  </span>
+                </h3>
+                <span onclick="close_cart()"
+                  ><i class="fa-solid fa-x"></i
+                ></span>
               </div>
 
-              <div class="item_in_cart">
-                <div class="item_cart">
-                  <img src="img/downloads.png" alt="iPhone 12 Pro Max" />
+              <!-- <div class="item_in_cart">
+                {% for item in cart_items %}
+                <div class="item_cart" data-id="{{ item.phone.id }}">
+                  <img
+                    src="{{ item.phone.image.url }}"
+                    alt="{{ item.phone.name }}"
+                  />
                   <div class="content">
-                    <h4>iPhone 12 Pro Max</h4>
-                    <p class="price_cart">$1,099.00</p>
+                    <h4>{{ item.phone.name }}</h4>
+                    <p class="price_cart">${{ item.total_price }}</p>
+
+                    <div class="quantity-control">
+                      <button
+                        class="decrease-qty"
+                        data-id="{{ item.phone.id }}"
+                      >
+                        -hhs
+                      </button>
+                      <span class="qty" data-id="{{ item.phone.id }}"
+                        >{{ item.quantity }}</span
+                      >
+                      <button
+                        class="increase-qty"
+                        data-id="{{ item.phone.id }}"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
-                  <button class="delete_item">
+                  <button
+                    class="delete_item"
+                    data-id="{{ item.phone.id }}"
+                    onclick="removeFromCart('{{ item.phone.id }}')"
+                  >
                     <i class="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
+                {% empty %}
+                <p class="empty-cart">Your cart is empty.</p>
+                {% endfor %}
+              </div> -->
+              <div class="demi">
+                {% for item in cart_items %}
+                <div class="cart-info" data-product="{{ item.phone.id }}">
+                  <div class="cart-img">
+                    <img
+                      src="{{ item.phone.image.url }}"
+                      alt="{{ item.phone.name }}"
+                    />
+                  </div>
+                  <div class="cart-detail">
+                    <h3>{{ item.phone.name }}</h3>
+                    <div class="price">
+                      <span>${{ item.phone.discounted_price }}</span>
+                    </div>
+                    <div class="btn">
+                      <button
+                        class="update-cart"
+                        data-action="remove"
+                        data-product="{{ item.phone.id }}"
+                      >
+                        -
+                      </button>
+                      <span>{{ item.quantity }}</span>
+                      <button
+                        class="update-cart"
+                        data-action="add"
+                        data-product="{{ item.phone.id }}"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <!-- <button
+                    class="cl-btn"
+                    onclick="removeFromCart('{{ item.phone.id }}')"
+                  >
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button> -->
+                </div>
+                {% empty %}
+                <p class="empty-cart">Your cart is empty.</p>
+                {% endfor %}
               </div>
-
               <div class="bottom_Cart">
                 <div class="total">
-                  <p>Cart subtotal</p>
-                  <p class="price_cart_total">$2,198.00</p>
+                  <p>Total:</p>
+                  <p class="price_cart_total">${{ cart_total }}</p>
                 </div>
 
                 <div class="button_Cart">
@@ -82,6 +213,7 @@
                 </div>
               </div>
             </div>
+
             <!-- end cart model -->
 
             <!-- Login -->
@@ -161,6 +293,7 @@
         </ul>
       </div>
     </nav>
+    <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/navbar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -191,5 +324,61 @@
         });
       });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- <script>
+      $(document).ready(function () {
+        $(".add-to-cart").click(function (e) {
+          e.preventDefault();
+          let phoneId = $(this).data("id");
+
+          $.ajax({
+            url: `/cart/add/${phoneId}/`,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+              if (data.success) {
+                updateCartUI(data.cart_items, data.cart_total);
+              } else {
+                alert("Failed to add item.");
+              }
+            },
+          });
+        });
+
+        window.removeFromCart = function (phoneId) {
+          $.ajax({
+            url: `/cart/remove/${phoneId}/`,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+              updateCartUI(data.cart_items, data.cart_total);
+            },
+          });
+        };
+
+        function updateCartUI(cartItems, cartTotal) {
+          $(".item_in_cart").html("");
+          $("#cart-count").text(cartItems.length);
+          $(".price_cart_total").text(`$${cartTotal}`);
+
+          $.each(cartItems, function (index, item) {
+            $(".item_in_cart").append(`
+                        <div class="item_cart">
+                            <img src="${item.image}" alt="${item.name}" />
+                            <div class="content">
+                                <h4>${item.name}</h4>
+                                <p class="price_cart">$${item.total_price}</p>
+                            </div>
+                            <button class="delete_item" onclick="removeFromCart(${item.phone_id})">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `);
+          });
+        }
+      });
+    </script> -->
   </body>
 </html>

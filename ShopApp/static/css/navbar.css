@@ -509,44 +509,53 @@
   color: #666666;
   font-weight: normal;
 }
-.cart .items_in_cart {
-  padding: 20px 0;
-  border-block: 1px solid #6666662a;
-  margin-block: 20px;
-  overflow-y: auto;
-  height: 100px;
+.demi {
+  height: 600px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
-.cart .item_cart {
+.cart-info {
+  width: 100%;
+  height: 100px;
   display: flex;
   gap: 20px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 25px;
+  /* justify-content: space-between; */
+  padding: 70px 0;
+  /* border: 2px solid black; */
 }
-.cart .item_cart:last-child {
-  margin-bottom: 0;
+h3 {
+  margin: 0;
 }
-.cart .item_cart img {
+.cart-img {
   width: 100px;
+  height: 120px;
 }
-.cart .item_cart h4 {
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: #0066c0;
+.cart-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
-.cart .item_cart .delete_item {
+.cart-detail {
+  padding: 10px 0;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* .price {
+  display: flex;
+} */
+/* .cl-btn {
+  height: 30px;
   outline: none;
   border: none;
+  background: transparent;
+  text-align: center;
+} */
+.demi::-webkit-scrollbar {
+  width: 6px;
 }
-.cart .item_cart .delete_item i {
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.cart .item_cart .delete_item i:hover {
-  color: #d01418;
-  transform: scale(1.2);
-}
+
 .cart .bottom_Cart .total {
   display: flex;
   justify-content: space-between;
@@ -580,4 +589,45 @@
 }
 .cart .button_Cart .trans_bg:hover {
   background: #fcb700;
+}
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.quantity-control button {
+  padding: 5px 10px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.quantity-control button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.qty {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cart .btn > button {
+  font-size: 1.5rem;
+  color: #b8860b;
+  border-radius: 10px;
+  border: 2px solid #fafafa;
+  /* background: #bebcbc; */
+  box-shadow: 3px 3px #fafafa;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.cart .btn button:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
 }

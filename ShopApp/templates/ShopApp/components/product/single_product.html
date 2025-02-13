@@ -73,16 +73,20 @@
 
           <!-- Add to Cart -->
           <div class="product-actions">
-            <div class="quantity-selector">
+            <!-- <div class="quantity-selector">
               <button class="quantity-btn" id="decrease">-</button>
               <input type="number" value="1" min="1" max="10" id="quantity" />
               <button class="quantity-btn" id="increase">+</button>
-            </div>
+            </div> -->
 
-            <form action="" method="POST">
-              {% csrf_token %}
-              <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-            </form>
+            <a
+              style="text-align: center"
+              class="add-to-cart-btn add-to-cart"
+              data-product="{{ product.id}}"
+              data-action="add"
+            >
+              Add to Cart
+            </a>
           </div>
 
           <!-- Additional Info -->
@@ -104,6 +108,7 @@
       </div>
     </section>
     {% include '../footer/footer.html' %}
+    <script src="{% static 'js/cart.js' %}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();

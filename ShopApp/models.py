@@ -31,8 +31,16 @@ class Phone(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name="phones")
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
     def __str__(self):
         return f"{self.name} ({self.brand.name})"
+    
     def discounted_price(self):
         """
         ❓Why this method is used?:
@@ -44,6 +52,8 @@ class Phone(models.Model):
         #  Note!!:  ❓ the rounding method ROUND_HALF_UP is used to round the decimal number that ends in 5 or higher rounds up to the next decimal place.❓
         return discounted_price.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
+
+ 
 
 
 class Customer(models.Model):
@@ -60,24 +70,8 @@ class Customer(models.Model):
         return check_password(raw_password, self.password)
     def __str__(self):
         return self.name
-
-
-class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     
-    def __str__(self):
-        return f"Order {self.id} by {self.customer.user.username}"
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
     
-    def __str__(self):
-        return f"{self.quantity} x {self.phone.name}"
 
 
 class Role(models.Model):
@@ -86,3 +80,29 @@ class Role(models.Model):
 class Employee(models.Model):
     employee_name = models.CharField(max_length=200)
     employee_role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name="roles")
+
+
+class CartItem(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    def total_price(self):
+        return self.quantity * self.phone.discounted_price()
+    def __str__(self):
+        return f"{self.phone.name} - {self.customer}"
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+    ordered_at = models.DateTimeField(auto_now_add=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    @property
+    def get_total(self):
+        total = self.phone.price * self.quantity
+        return total
+
+    def __str__(self):
+        return f"{self.customer.name} - {self.phone.name}"

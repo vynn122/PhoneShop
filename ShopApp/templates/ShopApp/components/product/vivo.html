@@ -59,9 +59,10 @@
           </div>
           <!-- Add to Cart Button -->
           <a
+            href="#"
             class="add-to-cart"
-            href="javascript:void(0);"
-            onclick="addToCart('{{ product.id }}')"
+            data-product="{{ product.id}}"
+            data-action="add"
           >
             Add to Cart
             <span class="hover-line"></span>
@@ -72,6 +73,7 @@
     </section>
 
     {% include '../footer/footer.html' %}
+    <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/productIndex.js' %}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

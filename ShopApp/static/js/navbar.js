@@ -77,9 +77,3 @@ function open_menu() {
 function close_menu() {
   menu.classList.remove("active");
 }
-window.onclick = function (event) {
-  let menu = document.querySelector("#menu");
-  if (event.target !== menu && !menu.contains(event.target)) {
-    close_menu();
-  }
-};

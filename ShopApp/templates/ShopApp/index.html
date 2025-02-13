@@ -9,6 +9,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/listLogo.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
   </head>
   <body>
     <!-- content  -->
@@ -79,7 +80,12 @@
             <div class="product-description">{{ product.description }}</div>
           </div>
           <!-- Add to Cart Button -->
-          <a class="add-to-cart" href="#">
+          <a
+            href="#"
+            class="add-to-cart"
+            data-product="{{ product.id}}"
+            data-action="add"
+          >
             Add to Cart
             <span class="hover-line"></span>
           </a>
@@ -91,12 +97,20 @@
     <!-- footer -->
     {% include './components/footer/footer.html' %}
     <!-- end content -->
-
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{% static 'js/listLogo.js' %}"></script>
     <script src="{% static 'js/productIndex.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
     <script>
       AOS.init();
+    </script>
+    <script>
+      var csrftoken = "{{ csrf_token }}";
     </script>
   </body>
 </html>

@@ -30,7 +30,7 @@
             </span>
           </h3>
         </a>
-        <a class="btn-view" href="">
+        <a class="btn-view" href="{% url 'brand_iphone' %}">
           View All<i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
@@ -65,9 +65,10 @@
           </div>
           <!-- Add to Cart Button -->
           <a
+            href="#"
             class="add-to-cart"
-            href="javascript:void(0);"
-            onclick="addToCart('{{ product.id }}')"
+            data-product="{{ product.id}}"
+            data-action="add"
           >
             Add to Cart
             <span class="hover-line"></span>
@@ -91,7 +92,7 @@
             </span>
           </h3>
         </a>
-        <a class="btn-view" href="">
+        <a class="btn-view" href="{% url 'brand_samsung' %}">
           View All<i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
@@ -125,7 +126,12 @@
             <div class="product-description">{{ product.description }}</div>
           </div>
           <!-- Add to Cart Button -->
-          <a class="add-to-cart" href="#">
+          <a
+            href="#"
+            class="add-to-cart"
+            data-product="{{ product.id}}"
+            data-action="add"
+          >
             Add to Cart
             <span class="hover-line"></span>
           </a>
@@ -148,7 +154,7 @@
             </span>
           </h3>
         </a>
-        <a class="btn-view" href="">
+        <a class="btn-view" href="{% url 'brand_oppo' %}">
           View All<i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
@@ -182,7 +188,12 @@
             <div class="product-description">{{ product.description }}</div>
           </div>
           <!-- Add to Cart Button -->
-          <a class="add-to-cart" href="#">
+          <a
+            href="#"
+            class="add-to-cart"
+            data-product="{{ product.id}}"
+            data-action="add"
+          >
             Add to Cart
             <span class="hover-line"></span>
           </a>
@@ -202,7 +213,7 @@
             </span>
           </h3>
         </a>
-        <a class="btn-view" href="">
+        <a class="btn-view" href="{% url 'brand_vivo' %}">
           View All<i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
@@ -236,7 +247,12 @@
             <div class="product-description">{{ product.description }}</div>
           </div>
           <!-- Add to Cart Button -->
-          <a class="add-to-cart" href="#">
+          <a
+            href="#"
+            class="add-to-cart"
+            data-product="{{ product.id}}"
+            data-action="add"
+          >
             Add to Cart
             <span class="hover-line"></span>
           </a>
@@ -248,6 +264,7 @@
     <script>
       AOS.init();
     </script>
+    <script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/productIndex.js' %}"></script>
   </body>
 </html>
