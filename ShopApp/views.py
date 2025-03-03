@@ -121,18 +121,13 @@ def single_product(request, product_id):
     return render(request, "ShopApp/components/product/single_product.html", context)
 
 
-
-
-
 def about(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
     if not customer:
         customer = Customer.objects.filter(name="Guest").first()
     return render(request, 'ShopApp/components/aboutUs/about.html', {"customer": customer})
 
-
-
-
+    
 
 # register
 def register_customer(request):
@@ -193,9 +188,7 @@ def logout_customer(request):
     request.session.flush()
     return redirect('homepage')
 
-# create login required decorator
 def login_required(view_func):
-    """Custom login required decorator for session-based authentication."""
     def wrapper(request, *args, **kwargs):
         if 'customer_id' not in request.session:
             messages.error(request, "You need to log in to continue!")
@@ -267,21 +260,24 @@ def updateItem(request):
 
     return JsonResponse({'message': 'Item updated', 'quantity': cart.quantity}, safe=False)
 
-def success_page(request):
+@login_required
+def cf_checkout(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
-    transactions = Transaction.objects.filter(customer=customer)
+    if customer:
+        cart_items = CartItem.objects.filter(customer=customer)
+    else:
+        cart_items = []
+    cart_total = sum(item.phone.discounted_price() * item.quantity for item in cart_items)
+    total_price = sum(item.phone.price * item.quantity for item in cart_items)
 
+    return render(request, "ShopApp/components/checkout/checkout.html", {"cf_checkout": cart_items, "ALLtotal_price": cart_total})
 
-    return render(request, "ShopApp/success.html", {'transactions': transactions})
-
-
-
+@login_required
 def checkout(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
     if not customer:
         messages.error(request, "You need to log in to proceed with checkout.")
         return redirect("loginpage")
-
     cart_items = CartItem.objects.filter(customer=customer)
     if not cart_items.exists():
         messages.warning(request, "Your cart is empty.")
@@ -303,3 +299,11 @@ def checkout(request):
 
     messages.success(request, "Checkout successful! Your order has been placed.")
     return redirect("checkout_success")
+
+@login_required
+def success_page(request):
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    transactions = Transaction.objects.filter(customer=customer)
+
+
+    return render(request, "ShopApp/success.html", {'transactions': transactions})

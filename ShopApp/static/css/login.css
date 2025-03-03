@@ -152,3 +152,22 @@ input[type="password"]:focus {
   color: #0056b3;
   text-decoration: underline;
 }
+.back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.back a {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+}

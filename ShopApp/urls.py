@@ -16,5 +16,6 @@ urlpatterns =[
 	path('update_item/', views.updateItem, name="update_item"),
     path("checkout/", checkout, name="checkout"),
     path("success/", success_page, name="checkout_success"),
+    path("cf_checkout/", views.cf_checkout, name="cf_checkout"),
 
 ]

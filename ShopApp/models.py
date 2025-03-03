@@ -9,7 +9,6 @@ class Brand(models.Model):
     def __str__(self):
         return self.name
 
-
 class Phone(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(blank=True, null=True)
@@ -30,14 +29,6 @@ class Phone(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name="phones")
-
-    @property
-    def imageURL(self):
-        try:
-            url = self.image.url
-        except:
-            url = ''
-        return url
     def __str__(self):
         return f"{self.name} ({self.brand.name})"
     
@@ -51,10 +42,6 @@ class Phone(models.Model):
         #  Note!!:  ❓ in here we use the quantize method to round the discounted price to two decimal places❓
         #  Note!!:  ❓ the rounding method ROUND_HALF_UP is used to round the decimal number that ends in 5 or higher rounds up to the next decimal place.❓
         return discounted_price.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-
-
- 
-
 
 class Customer(models.Model):
     name = models.CharField(max_length=200, blank=True)
@@ -92,22 +79,6 @@ class CartItem(models.Model):
         return self.quantity * self.phone.discounted_price()
     def __str__(self):
         return f"{self.phone.name} - {self.customer}"
-
-class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0, null=True, blank=True)
-    ordered_at = models.DateTimeField(auto_now_add=True)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    @property
-    def get_total(self):
-        total = self.phone.price * self.quantity
-        return total
-
-    def __str__(self):
-        return f"{self.customer.name} - {self.phone.name}"
-    
-
 
 class Transaction(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)

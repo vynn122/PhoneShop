@@ -208,10 +208,12 @@
                 </div>
 
                 <div class="button_Cart">
-                  <a href="{% url 'checkout' %}" class="btn_cart"
+                  <a href="{% url 'cf_checkout' %}" class="btn_cart"
                     >Proceed to checkout</a
                   >
-                  <button class="btn_cart trans_bg">Shop more</button>
+                  <button class="btn_cart trans_bg">
+                    <a href="{% url 'all_phones' %}">Shop more</a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -328,59 +330,5 @@
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- <script>
-      $(document).ready(function () {
-        $(".add-to-cart").click(function (e) {
-          e.preventDefault();
-          let phoneId = $(this).data("id");
-
-          $.ajax({
-            url: `/cart/add/${phoneId}/`,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-              if (data.success) {
-                updateCartUI(data.cart_items, data.cart_total);
-              } else {
-                alert("Failed to add item.");
-              }
-            },
-          });
-        });
-
-        window.removeFromCart = function (phoneId) {
-          $.ajax({
-            url: `/cart/remove/${phoneId}/`,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-              updateCartUI(data.cart_items, data.cart_total);
-            },
-          });
-        };
-
-        function updateCartUI(cartItems, cartTotal) {
-          $(".item_in_cart").html("");
-          $("#cart-count").text(cartItems.length);
-          $(".price_cart_total").text(`$${cartTotal}`);
-
-          $.each(cartItems, function (index, item) {
-            $(".item_in_cart").append(`
-                        <div class="item_cart">
-                            <img src="${item.image}" alt="${item.name}" />
-                            <div class="content">
-                                <h4>${item.name}</h4>
-                                <p class="price_cart">$${item.total_price}</p>
-                            </div>
-                            <button class="delete_item" onclick="removeFromCart(${item.phone_id})">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                    `);
-          });
-        }
-      });
-    </script> -->
   </body>
 </html>

@@ -1,0 +1,232 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/logo.png' %}" />
+    <title>{% block title %}Phone Shop | checkout {% endblock %}</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 60%;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .cart {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #333;
+      color: #fff;
+    }
+    th,
+    td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    img {
+      width: 50px;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .empty-cart {
+      text-align: center;
+      color: #888;
+      font-size: 18px;
+    }
+
+    .checkout-btn {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .checkout-btn .btn {
+      display: inline-block;
+      background: #28a745;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .checkout-btn .btn:hover {
+      background: #218838;
+    }
+
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+    .total-section {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: right;
+      padding: 10px;
+      background: #f8f9fa;
+      border-top: 2px solid #333;
+    }
+    .back-btn {
+      margin-bottom: 15px;
+    }
+
+    .back-btn a {
+      display: inline-block;
+      text-decoration: none;
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .back-btn a:hover {
+      background: #0056b3;
+    }
+    tbody {
+      display: block;
+      max-height: 400px;
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    tbody::-webkit-scrollbar {
+      width: 6px;
+    }
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 95%;
+      }
+
+      .checkout-btn .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+
+      .back-btn a {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      table {
+        width: 100%;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        padding: 8px;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      .empty-cart {
+        font-size: 16px;
+      }
+
+      .total-section {
+        font-size: 16px;
+        text-align: left;
+        padding: 10px;
+      }
+
+      .cart {
+        margin-top: 10px;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Checkout</h2>
+      <div class="back-btn">
+        <a href="{% url 'homepage' %}">← Back</a>
+      </div>
+      <div class="cart">
+        {% if cf_checkout %}
+        <table>
+          <thead>
+            <tr>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cf_checkout %}
+            <tr>
+              <td>
+                <img
+                  src="{{ item.phone.image.url }}"
+                  alt="{{ item.phone.name }}"
+                />
+              </td>
+              <td>{{ item.phone.name }}</td>
+              <td>${{ item.phone.discounted_price }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>${{ item.total_price |floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="total-section">
+          <p>
+            <strong>Total Price: </strong> ${{ ALLtotal_price|floatformat:2 }}
+          </p>
+        </div>
+        <div class="checkout-btn">
+          <a href="{% url 'checkout' %}" class="btn">Proceed to Payment</a>
+        </div>
+        {% else %}
+        <p class="empty-cart">Your cart is empty.</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
