@@ -17,5 +17,6 @@ urlpatterns =[
     path("checkout/", checkout, name="checkout"),
     path("success/", success_page, name="checkout_success"),
     path("cf_checkout/", views.cf_checkout, name="cf_checkout"),
+    path("user_info", views.user_page, name="user_info"),
 
 ]

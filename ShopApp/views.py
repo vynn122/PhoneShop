@@ -10,10 +10,12 @@ from django.utils.timezone import now
 from datetime import timedelta
 from django.views.decorators.cache import never_cache
 from django.contrib.messages import get_messages
-# from ...test.work.moha_work.utils import *
 import json
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+import requests
+import time
+from .util import get_next_invoice_number
 
 
 # Create your views here.
@@ -272,6 +274,27 @@ def cf_checkout(request):
 
     return render(request, "ShopApp/components/checkout/checkout.html", {"cf_checkout": cart_items, "ALLtotal_price": cart_total})
 
+
+TELEGRAM_BOT_TOKEN ="7681845225:AAF3r1-mT3PBs4fw_PPK1NNGMWe_LfkTx0Q"
+TELEGRAM_CHAT_ID = "-4624688173"
+
+
+
+
+def send_to_telegram(message):
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    data = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+    }
+    
+    response = requests.post(url, data=data)
+    
+    if response.status_code != 200:
+        print(f"Failed to send message: {response.text}")
+    time.sleep(1)
+
+
 @login_required
 def checkout(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
@@ -281,29 +304,65 @@ def checkout(request):
     cart_items = CartItem.objects.filter(customer=customer)
     if not cart_items.exists():
         messages.warning(request, "Your cart is empty.")
-        return redirect("homepage")  
+        return redirect("homepage") 
+    # transactions = [
+    #     Transaction(
+    #         customer=customer,
+    #         phone=item.phone,
+    #         brand=item.phone.brand,
+    #         quantity=item.quantity,
+    #         total_price=item.phone.discounted_price() * item.quantity,
+             
+    #     )
+    #     for item in cart_items
+        
+    # ]
+    inv = get_next_invoice_number()
+    # last_transaction = Transaction.objects.order_by("-id").first()
+    # inv = (last_transaction.id + 1) if last_transaction else 1 
+    transactions = []
+    order_summary = f"------- New Order -------\n\n"
+    order_summary += f"InvoiceNo: INV-{inv}\n\n"
 
-    transactions = [
-        Transaction(
+    for item in cart_items:
+        total_price = item.phone.discounted_price() * item.quantity
+        transactions.append(Transaction(
             customer=customer,
             phone=item.phone,
             brand=item.phone.brand,
             quantity=item.quantity,
-            total_price=item.phone.discounted_price() * item.quantity,
-        )
-        for item in cart_items
-    ]
-
+            total_price=total_price,
+        ))   
+        order_summary += f"{item.phone.name} ({item.phone.brand.name})\n"
+        order_summary += f"Quantity: {item.quantity}\n"
+        order_summary += f"Price: ${item.phone.discounted_price()} x {item.quantity} = ${total_price}\n\n"
+        
+    order_summary += f"Order By: {customer.name} ({customer.email})\n\n"
+    order_summary += f"Total Price: ${sum(item.total_price for item in transactions)}"
     Transaction.objects.bulk_create(transactions)  
+    send_to_telegram(order_summary)
     cart_items.delete()  
 
     messages.success(request, "Checkout successful! Your order has been placed.")
     return redirect("checkout_success")
 
+
+
+
 @login_required
 def success_page(request):
     customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
     transactions = Transaction.objects.filter(customer=customer)
-
-
     return render(request, "ShopApp/success.html", {'transactions': transactions})
+
+
+
+
+@login_required
+def user_page (request):
+    customer = Customer.objects.filter(id=request.session.get("customer_id")).first()
+    transactions = Transaction.objects.filter(customer=customer)
+    cart_total = sum(item.phone.discounted_price() * item.quantity for item in transactions)
+    return render(request, "ShopApp/components/checkout/userInfo.html", {"transactions": transactions,"customer": customer, "ALLtotal_price": cart_total})
+
+

@@ -2,6 +2,9 @@
   max-width: 100%;
   box-sizing: border-box;
 }
+body {
+  overflow-x: hidden;
+}
 .hero {
   position: relative;
   height: 86.5vh;

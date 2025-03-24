@@ -47,7 +47,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, blank=True)
     email = models.EmailField(unique=True  ,null=True)  
     password = models.CharField(max_length=200) 
-
+    
     def set_password(self, raw_password):
         """Hashes the password and sets it"""
         self.password = make_password(raw_password)

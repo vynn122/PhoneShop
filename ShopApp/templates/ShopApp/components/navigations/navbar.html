@@ -63,12 +63,12 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="name-cu">
+      <div class="name-cu" style="display: none">
         {% if customer and customer.name != "Guest" %}
         <p>Hii, {{ customer.name }}</p>
         <span id="checking" data-auth="true" hidden></span>
         {% else %}
-        <!-- <p>Welcome, Guest!</p> -->
+
         <span id="checking" data-auth="false" hidden></span>
         {% endif %}
       </div>
@@ -80,7 +80,7 @@
 
         <!-- Search and Features -->
         <li class="feature">
-          <div class="search">
+          <!-- <div class="search">
             <form action="">
               <input
                 type="search"
@@ -88,7 +88,10 @@
                 class="search-input"
               />
             </form>
-          </div>
+          </div> -->
+          <!-- <a href="{% url 'user_info' %}" id="user"
+            ><i class="fa-solid fa-user"></i
+          ></a> -->
 
           <!-- end  view cart -->
           <div class="cart-login">
@@ -246,6 +249,11 @@
         <div class="hamburger-menu">
           <ul class="menu-list">
             <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li>
+              <a href="{% url 'user_info' %}" id="user"
+                ><i class="fa-solid fa-user"></i>User</a
+              >
+            </li>
             <li><a href="{% url 'all_phones' %}">All Products</a></li>
             <li class="dropdown">
               <a href="javascript:void(0)" id="dropdown-toggle">
@@ -294,6 +302,9 @@
             </ul>
           </li>
           <li><a href="{% url 'about' %}">About Us</a></li>
+          <a href="{% url 'user_info' %}" id="user"
+            ><i class="fa-solid fa-user"></i
+          ></a>
         </ul>
       </div>
     </nav>

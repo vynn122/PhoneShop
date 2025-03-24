@@ -138,9 +138,6 @@ function viewCart(cartItems) {
             </div>
         `;
   });
-  // <button class="cl-btn" onclick="updateCart(${item.id}, 'remove_all')">
-  //                   <i class="fa-regular fa-trash-can"></i>
-  //               </button>
   attachEventListeners();
 }
 
